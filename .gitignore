@@ -1,0 +1,8 @@
+.pio
+.pioenvs
+.piolibdeps
+lib/
+include/README
+platformio.ini
+test/
+.travis.yml
