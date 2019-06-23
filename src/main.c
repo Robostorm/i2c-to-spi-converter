@@ -5,7 +5,7 @@
 int main()
 {
     usart_init();
-    TWI_init();
+    twi_init();
 
     //set LED as output
     DDRC |= (1 << PC0);

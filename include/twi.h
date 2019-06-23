@@ -10,7 +10,7 @@
 #define TWI_SR_DATA_ACK 0x80
 #define TWI_SR_STOP 0xA0
 
-void TWI_init(void);
+void twi_init(void);
 ISR(TWI_vect);
 
 #endif

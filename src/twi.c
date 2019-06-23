@@ -1,7 +1,7 @@
 #include "twi.h"
 #include "queue.h"
 
-void TWI_init()
+void twi_init()
 {
     //set address register shifted left 1 because the address is the highest 7 bits of TWAR
     TWAR = (TWI_SLAVE_ADDR << 1);
