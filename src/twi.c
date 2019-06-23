@@ -1,8 +1,6 @@
 #include "twi.h"
 #include "queue.h"
 
-uint8_t data = 0x00;
-
 void TWI_init()
 {
     //set address register shifted left 1 because the address is the highest 7 bits of TWAR
@@ -32,3 +30,4 @@ ISR(TWI_vect)
         TWCR |= (1 << TWIE) | (1 << TWEA) | (1 << TWINT);
     }
 }
+
