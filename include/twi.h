@@ -11,10 +11,7 @@
 #define TWI_SR_STOP 0xA0
 
 void TWI_init();
-uint8_t TWI_get_data();
 ISR(TWI_vect);
-
-#define 
 
 #endif
 
