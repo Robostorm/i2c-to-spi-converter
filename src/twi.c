@@ -1,4 +1,5 @@
 #include "twi.h"
+#include "queue.h"
 
 uint8_t data = 0x00;
 
@@ -20,7 +21,10 @@ ISR(TWI_vect)
     }
     else if((TWSR & 0xF8) == TWI_SR_DATA_ACK)
     {
+        queue_push(TWDR);
 
+        //re-enable interrupt, re-enable TWI, send ACK, and clear TWINT
+        TWCR |= (1 << TWIE) | (1 << TWEN) | (1 << TWEA) | (1 << TWINT);
     }
     else if((TWSR & 0xF8) == TWI_SR_STOP)
     {
