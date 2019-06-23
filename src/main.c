@@ -1,5 +1,6 @@
 #include "main.h"
 #include "queue.h"
+#include "usart.h"
 #include "twi.h"
 
 int main()

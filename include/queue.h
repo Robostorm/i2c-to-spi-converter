@@ -1,6 +1,8 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
+#include <avr/io.h>
+
 #define QUEUE_MAX 0xFF
 
 void queue_push(uint8_t data);

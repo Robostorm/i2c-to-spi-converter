@@ -13,7 +13,7 @@ void queue_push(uint8_t data)
             rear = -1;
 
         queue_array[++rear] = data;
-        count++
+        count++;
     }
 }
 
