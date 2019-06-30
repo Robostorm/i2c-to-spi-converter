@@ -60,7 +60,7 @@ void tlc_send(uint8_t data[TLC_NUM_TRANSMISSION_BYTES])
 
     TCCR1A &= ~(1 << COM1A1); //ensure XLAT pwm is turned off
 
-    uint8_t *p = tlc_data;
+    uint8_t *p = data;
 
     //send 3 bytes at a time until all 24 bytes have been sent, since each pwm value is 12 bits, meaning every 3 bytes accounts for 2 pwm values
     while(p < data + TLC_NUM_TRANSMISSION_BYTES)
