@@ -9,6 +9,7 @@ void queue_push(uint8_t data);
 uint8_t queue_pop(void);
 
 extern uint8_t queue_array[];
+extern uint8_t queue_count;
 
 #endif
 

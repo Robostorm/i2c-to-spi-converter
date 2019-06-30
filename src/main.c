@@ -2,6 +2,7 @@
 #include "queue.h"
 #include "usart.h"
 #include "twi.h"
+#include "tlc.h"
 
 int main()
 {
@@ -17,7 +18,13 @@ int main()
 
     sei();
 
-    while(1){}
+    while(1)
+    {
+        if(queue_count >= TLC_NUM_TRANSMISSION_BYTES)
+            tlc_send();
+    }
+
     return 0;
 }
+
 

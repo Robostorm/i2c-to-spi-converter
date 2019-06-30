@@ -1,4 +1,5 @@
 #include "tlc.h"
+#include "queue.h"
 
 volatile uint8_t tlc_need_xlat = 0; //keeps track of if xlat needs to be sent
 
@@ -53,21 +54,29 @@ void tlc_init()
     TCCR2B |= (1 << CS20);
 }
 
-void tlc_send(uint8_t data[TLC_NUM_TRANSMISSION_BYTES])
+void tlc_send()
 {
     if(tlc_need_xlat)
         return;
 
     TCCR1A &= ~(1 << COM1A1); //ensure XLAT pwm is turned off
 
-    uint8_t *p = data;
+    //uint8_t *p = data;
+
+    uint8_t bytes_sent = 0;
 
     //send 3 bytes at a time until all 24 bytes have been sent, since each pwm value is 12 bits, meaning every 3 bytes accounts for 2 pwm values
-    while(p < data + TLC_NUM_TRANSMISSION_BYTES)
+    while(bytes_sent < TLC_NUM_TRANSMISSION_BYTES)
     {
-        tlc_shift(*p++);
-        tlc_shift(*p++);
-        tlc_shift(*p++);
+        /*tlc_shift(*data++);
+        tlc_shift(*data++);
+        tlc_shift(*data++);*/
+
+        tlc_shift(queue_pop());
+        tlc_shift(queue_pop());
+        tlc_shift(queue_pop());
+
+        bytes_sent += 3;
     }
 
     tlc_need_xlat = 1;
