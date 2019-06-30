@@ -56,6 +56,24 @@ void tlc_init()
 
 void tlc_send()
 {
+    if(tlc_need_xlat)
+        return;
+
+    TCCR1A &= ~(1 << COM1A1); //ensure XLAT pwm is turned off
+
+    uint8_t *p = tlc_data;
+
+    //send 3 bytes at a time until all 24 bytes have been sent, since each pwm value is 12 bits, meaning every 3 bytes accounts for 2 pwm values
+    while(p < tlc_data + 24)
+    {
+        tlc_shift(*p++);
+        tlc_shift(*p++);
+        tlc_shift(*p++);
+    }
+
+    tlc_need_xlat = 1;
+    TIMSK1 |= (1 << TOIE1); //enable TIMER1 overflow interrupt so it can turn itself off after 1 pulse
+    TCCR1A |= (1 << COM1A1); //turn on XLAT pwm output
 }
 
 void tlc_set(uint8_t channel, uint16_t value)
@@ -64,9 +82,15 @@ void tlc_set(uint8_t channel, uint16_t value)
 
 void tlc_shift(uint8_t byte)
 {
+    SPDR = byte; //write the byte to the data transfer register
+    while (!(SPSR & (1 << SPIF)); //wait for SPIF to clear, meaning the transmission is complete 
 }
 
+//Runs everytime TIMER1 overflows; turns off XLAT pulses after XLAT is pulsed once
 ISR(TIMER1_OVF_vect)
 {
+    TCCR1A &= ~(1 << COM1A1); //turn off XLAT pwm output
+    TIMSK1 &= ~(1 << TOIE1); //disable this interrupt so it doesn't cause problems
+    tlc_need_xlat = 0;
 }
 
