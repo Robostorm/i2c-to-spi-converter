@@ -28,9 +28,10 @@
 #define TLC_BLANK_DUTY_FACTOR 2
 #define TLC_TIMER1_PERIOD 8192
 #define TLC_GSCLK_PERIOD 3
+#define TLC_NUM_TRANSMISSION_BYTES 24
 
 void tlc_init(void);
-void tlc_send(void);
+void tlc_send(uint8_t data[TLC)NUM_TRANSMISSION_BYTES]);
 void tlc_set(uint8_t channel, uint16_t value);
 void tlc_shift(uint_t byte);
 

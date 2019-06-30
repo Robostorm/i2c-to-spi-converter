@@ -1,7 +1,6 @@
 #include "tlc.h"
 
 volatile uint8_t tlc_need_xlat = 0; //keeps track of if xlat needs to be sent
-uint8_t tlc_data[24]; //24 byte array for grayscale data
 
 void tlc_init()
 {
@@ -54,7 +53,7 @@ void tlc_init()
     TCCR2B |= (1 << CS20);
 }
 
-void tlc_send()
+void tlc_send(uint8_t data[TLC_NUM_TRANSMISSION_BYTES])
 {
     if(tlc_need_xlat)
         return;
@@ -64,7 +63,7 @@ void tlc_send()
     uint8_t *p = tlc_data;
 
     //send 3 bytes at a time until all 24 bytes have been sent, since each pwm value is 12 bits, meaning every 3 bytes accounts for 2 pwm values
-    while(p < tlc_data + 24)
+    while(p < data + TLC_NUM_TRANSMISSION_BYTES)
     {
         tlc_shift(*p++);
         tlc_shift(*p++);
