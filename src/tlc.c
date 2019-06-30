@@ -75,10 +75,6 @@ void tlc_send(uint8_t data[TLC_NUM_TRANSMISSION_BYTES])
     TCCR1A |= (1 << COM1A1); //turn on XLAT pwm output
 }
 
-void tlc_set(uint8_t channel, uint16_t value)
-{
-}
-
 void tlc_shift(uint8_t byte)
 {
     SPDR = byte; //write the byte to the data transfer register
