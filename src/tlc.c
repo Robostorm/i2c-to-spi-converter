@@ -18,7 +18,7 @@ void tlc_init()
     //==SPI INIT==
     SPCR |= (1 << SPE); //enable SPI
     SPCR |= (1 << MSTR); //SPI master mode
-    SPSR |= (1 << SPI2x); //double speed
+    SPSR |= (1 << SPI2X); //double speed
 
     //==TIMER1 INIT==
     //TIMER1 used for timing the XLAT and BLANK pulses
@@ -87,7 +87,7 @@ void tlc_send()
 void tlc_shift(uint8_t byte)
 {
     SPDR = byte; //write the byte to the data transfer register
-    while (!(SPSR & (1 << SPIF)); //wait for SPIF to clear, meaning the transmission is complete 
+    while (!(SPSR & (1 << SPIF))); //wait for SPIF to clear, meaning the transmission is complete 
 }
 
 //Runs everytime TIMER1 overflows; turns off XLAT pulses after XLAT is pulsed once

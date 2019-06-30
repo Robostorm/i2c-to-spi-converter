@@ -32,7 +32,7 @@
 
 void tlc_init(void);
 void tlc_send();
-void tlc_shift(uint_t byte);
+void tlc_shift(uint8_t byte);
 
 #endif
 
