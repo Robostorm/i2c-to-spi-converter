@@ -19,10 +19,17 @@ int main()
 
     sei();
 
+    printf("ready\n");
+
+    uint8_t is_sent = 0;
     while(1)
     {
-        if(queue_count >= TLC_NUM_TRANSMISSION_BYTES)
+        queue_push(8);
+        if(is_sent == 0 && queue_count >= TLC_NUM_TRANSMISSION_BYTES)
+        {
             tlc_send();
+            is_sent = 1;
+        }
     }
 
     return 0;
