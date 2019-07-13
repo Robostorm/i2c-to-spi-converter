@@ -26,6 +26,7 @@ void setup()
 
 void loop()
 {
+    Serial.println(queue_count);
     if(queue_count >= 2)
     {
         //  byte 2    byte 1
@@ -38,8 +39,8 @@ void loop()
         uint8_t channel = byte1 & 0x0F;
         uint16_t value = ((byte1 & 0xF0) >> 4) + (byte2 << 4);
 
-        Serial.println(channel);
-        Serial.println(value);
+        //Serial.println(channel);
+        //Serial.println(value);
 
         Tlc.set(channel, value);
         Tlc.update();
